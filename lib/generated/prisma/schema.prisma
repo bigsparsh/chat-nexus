@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String @id @default(cuid())
+  name    String
+  email   String @unique
+  address String
+  image   String
+  phone   String
+
+  user1 Friend[] @relation("user1")
+  user2 Friend[] @relation("user2")
+
+  posts              Post[]
+  comments           Comment[]
+  commentPreferences CommentPreference[]
+  postPreference     PostPreference[]
+
+  @@index([id])
+}
+
+model Friend {
+  id       String  @id @default(cuid())
+  user1_id String
+  user2_id String
+  mutual   Boolean
+
+  user1 User @relation("user1", fields: [user1_id], references: [id], onDelete: Cascade)
+  user2 User @relation("user2", fields: [user2_id], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
+
+model Post {
+  id      String  @id @default(cuid())
+  userId  String
+  image   String?
+  message String?
+
+  preferences PostPreference[]
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+
+  @@index([id])
+}
+
+model Comment {
+  id      String @id @default(cuid())
+  message String
+  userId  String
+  postId  String
+
+  preferences CommentPreference[]
+  post        Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
+
+model PostPreference {
+  id         String  @id @default(cuid())
+  userId     String
+  postId     String
+  preference Boolean
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
+
+model CommentPreference {
+  id         String  @id @default(cuid())
+  userId     String
+  commentId  String
+  preference Boolean
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
