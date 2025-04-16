@@ -1613,9 +1613,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    address: string
+    address: string | null
     image: string
-    phone: string
+    phone: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1705,9 +1705,9 @@ export namespace Prisma {
       id: string
       name: string
       email: string
-      address: string
+      address: string | null
       image: string
-      phone: string
+      phone: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -8188,9 +8188,9 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    address?: StringFilter<"User"> | string
+    address?: StringNullableFilter<"User"> | string | null
     image?: StringFilter<"User"> | string
-    phone?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
     user1?: FriendListRelationFilter
     user2?: FriendListRelationFilter
     posts?: PostListRelationFilter
@@ -8203,9 +8203,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    address?: SortOrder
+    address?: SortOrderInput | SortOrder
     image?: SortOrder
-    phone?: SortOrder
+    phone?: SortOrderInput | SortOrder
     user1?: FriendOrderByRelationAggregateInput
     user2?: FriendOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
@@ -8221,9 +8221,9 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    address?: StringFilter<"User"> | string
+    address?: StringNullableFilter<"User"> | string | null
     image?: StringFilter<"User"> | string
-    phone?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
     user1?: FriendListRelationFilter
     user2?: FriendListRelationFilter
     posts?: PostListRelationFilter
@@ -8236,9 +8236,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    address?: SortOrder
+    address?: SortOrderInput | SortOrder
     image?: SortOrder
-    phone?: SortOrder
+    phone?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -8251,9 +8251,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    address?: StringWithAggregatesFilter<"User"> | string
+    address?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringWithAggregatesFilter<"User"> | string
-    phone?: StringWithAggregatesFilter<"User"> | string
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type FriendWhereInput = {
@@ -8531,9 +8531,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     user2?: FriendCreateNestedManyWithoutUser2Input
     posts?: PostCreateNestedManyWithoutUserInput
@@ -8546,9 +8546,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -8561,9 +8561,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     user2?: FriendUpdateManyWithoutUser2NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -8576,9 +8576,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -8591,27 +8591,27 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendCreateInput = {
@@ -8877,6 +8877,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type FriendListRelationFilter = {
     every?: FriendWhereInput
     some?: FriendWhereInput
@@ -8905,6 +8920,11 @@ export namespace Prisma {
     every?: PostPreferenceWhereInput
     some?: PostPreferenceWhereInput
     none?: PostPreferenceWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type FriendOrderByRelationAggregateInput = {
@@ -8972,6 +8992,24 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -9011,26 +9049,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -9050,24 +9068,6 @@ export namespace Prisma {
     userId?: SortOrder
     image?: SortOrder
     message?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type PostScalarRelationFilter = {
@@ -9229,6 +9229,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type FriendUpdateManyWithoutUser1NestedInput = {
@@ -9465,10 +9469,6 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type PostPreferenceUpdateManyWithoutPostNestedInput = {
     create?: XOR<PostPreferenceCreateWithoutPostInput, PostPreferenceUncheckedCreateWithoutPostInput> | PostPreferenceCreateWithoutPostInput[] | PostPreferenceUncheckedCreateWithoutPostInput[]
     connectOrCreate?: PostPreferenceCreateOrConnectWithoutPostInput | PostPreferenceCreateOrConnectWithoutPostInput[]
@@ -9673,6 +9673,20 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9701,33 +9715,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9754,6 +9741,19 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FriendCreateWithoutUser1Input = {
@@ -10044,9 +10044,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user2?: FriendCreateNestedManyWithoutUser2Input
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
@@ -10058,9 +10058,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
@@ -10077,9 +10077,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
@@ -10091,9 +10091,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
@@ -10121,9 +10121,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user2?: FriendUpdateManyWithoutUser2NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
@@ -10135,9 +10135,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10160,9 +10160,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
@@ -10174,9 +10174,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10210,9 +10210,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     user2?: FriendCreateNestedManyWithoutUser2Input
     comments?: CommentCreateNestedManyWithoutUserInput
@@ -10224,9 +10224,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
@@ -10294,9 +10294,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     user2?: FriendUpdateManyWithoutUser2NestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
@@ -10308,9 +10308,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10381,9 +10381,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     user2?: FriendCreateNestedManyWithoutUser2Input
     posts?: PostCreateNestedManyWithoutUserInput
@@ -10395,9 +10395,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -10468,9 +10468,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     user2?: FriendUpdateManyWithoutUser2NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -10482,9 +10482,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -10496,9 +10496,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     user2?: FriendCreateNestedManyWithoutUser2Input
     posts?: PostCreateNestedManyWithoutUserInput
@@ -10510,9 +10510,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -10561,9 +10561,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     user2?: FriendUpdateManyWithoutUser2NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -10575,9 +10575,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -10616,9 +10616,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendCreateNestedManyWithoutUser1Input
     user2?: FriendCreateNestedManyWithoutUser2Input
     posts?: PostCreateNestedManyWithoutUserInput
@@ -10630,9 +10630,9 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    address: string
+    address?: string | null
     image: string
-    phone: string
+    phone?: string | null
     user1?: FriendUncheckedCreateNestedManyWithoutUser1Input
     user2?: FriendUncheckedCreateNestedManyWithoutUser2Input
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -10679,9 +10679,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUpdateManyWithoutUser1NestedInput
     user2?: FriendUpdateManyWithoutUser2NestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -10693,9 +10693,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user1?: FriendUncheckedUpdateManyWithoutUser1NestedInput
     user2?: FriendUncheckedUpdateManyWithoutUser2NestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
