@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id      String  @id @default(cuid())
+  user_id String  @id @default(cuid())
   name    String
   email   String  @unique
   address String?
@@ -24,68 +24,68 @@ model User {
   commentPreferences CommentPreference[]
   postPreference     PostPreference[]
 
-  @@index([id])
+  @@index([user_id])
 }
 
 model Friend {
-  id       String  @id @default(cuid())
-  user1_id String
-  user2_id String
-  mutual   Boolean
+  friend_id String  @id @default(cuid())
+  user1_id  String
+  user2_id  String
+  mutual    Boolean
 
-  user1 User @relation("user1", fields: [user1_id], references: [id], onDelete: Cascade)
-  user2 User @relation("user2", fields: [user2_id], references: [id], onDelete: Cascade)
+  user1 User @relation("user1", fields: [user1_id], references: [user_id], onDelete: Cascade)
+  user2 User @relation("user2", fields: [user2_id], references: [user_id], onDelete: Cascade)
 
-  @@index([id])
+  @@index([friend_id])
 }
 
 model Post {
-  id      String  @id @default(cuid())
+  post_id String  @id @default(cuid())
   userId  String
   image   String?
   message String?
 
   preferences PostPreference[]
-  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User             @relation(fields: [userId], references: [user_id], onDelete: Cascade)
 
   comments Comment[]
 
-  @@index([id])
+  @@index([post_id])
 }
 
 model Comment {
-  id      String @id @default(cuid())
-  message String
-  userId  String
-  postId  String
+  comment_id String @id @default(cuid())
+  message    String
+  userId     String
+  postId     String
 
   preferences CommentPreference[]
-  post        Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post        Post                @relation(fields: [postId], references: [post_id], onDelete: Cascade)
+  user        User                @relation(fields: [userId], references: [user_id], onDelete: Cascade)
 
-  @@index([id])
+  @@index([comment_id])
 }
 
 model PostPreference {
-  id         String  @id @default(cuid())
-  userId     String
-  postId     String
-  preference Boolean
+  post_preference_id String  @id @default(cuid())
+  userId             String
+  postId             String
+  preference         Boolean
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [post_id], onDelete: Cascade)
 
-  @@index([id])
+  @@index([post_preference_id])
 }
 
 model CommentPreference {
-  id         String  @id @default(cuid())
-  userId     String
-  commentId  String
-  preference Boolean
+  comment_preference_id String  @id @default(cuid())
+  userId                String
+  commentId             String
+  preference            Boolean
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [comment_id], onDelete: Cascade)
 
-  @@index([id])
+  @@index([comment_preference_id])
 }

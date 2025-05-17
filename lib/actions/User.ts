@@ -9,7 +9,7 @@ export const checkUser = async () => {
   // Fetch user from DB
   const dbUser = await prisma.user.findUnique({
     where: {
-      id: user.id
+      user_id: user.id
     }
   })
 
@@ -17,7 +17,7 @@ export const checkUser = async () => {
   if (!dbUser) {
     const newUser = await prisma.user.create({
       data: {
-        id: user.id,
+        user_id: user.id,
         email: user.emailAddresses[0].emailAddress,
         image: user.imageUrl,
         name: `${user.fullName}`
@@ -34,4 +34,64 @@ export const checkUser = async () => {
     usernew: true,
     user: dbUser
   }
+}
+
+export const getUsers = async () => {
+  const users = await prisma.user.findMany({
+    select: {
+      user_id: true,
+      email: true,
+      image: true,
+      phone: true,
+      address: true,
+      name: true,
+      posts: true
+    }
+  })
+  return users;
+}
+
+export const getUserGraph = async () => {
+  const user = await currentUser();
+  if (!user) return;
+
+  const graph = await prisma.user.findUnique({
+    where: {
+      user_id: user.id
+    },
+    select: {
+      user_id: true, // Layer 1
+      user2: {
+        select: {
+          mutual: true,
+          user2: {
+            select: {
+              user_id: true, // Layer 2
+              user2: {
+                select: {
+                  mutual: true,
+                  user2: {
+                    select: {
+                      user_id: true, // Layer 3
+                      user2: {
+                        select: {
+                          mutual: true,
+                          user2: {
+                            select: {
+                              user_id: true, // Layer 4
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+  return graph;
 }
