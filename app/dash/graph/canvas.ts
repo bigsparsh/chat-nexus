@@ -6,7 +6,6 @@ import { Network } from "vis-network";
 import "vis-network/styles/vis-network.css";
 
 export const init = async (container: HTMLDivElement) => {
-  console.log("INIT CALLED");
   const manager = GraphManager.getInstance();
   await manager.addEdgesFromDB();
   // create an array with nodes
@@ -25,7 +24,7 @@ export const init = async (container: HTMLDivElement) => {
   }
 
 
-  let nodes = new DataSet([
+  const nodes = new DataSet([
     ...vertices
   ]);
 
@@ -60,18 +59,18 @@ export const init = async (container: HTMLDivElement) => {
   })
 
   // @ts-expect-error "no error"
-  let edges = new DataSet([
+  const edges = new DataSet([
     ...connections
   ]);
 
 
 
   // create a network
-  let data = {
+  const data = {
     nodes: nodes,
     edges: edges,
   };
-  let options = {
+  const options = {
     nodes: {
       borderWidth: 4,
       size: 30,
