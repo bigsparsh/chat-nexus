@@ -7,13 +7,14 @@ export type EdgeType = {
 
 export class GraphManager {
   static graph: GraphManager;
+  user: any;
 
   edges: Map<string, string[]>;
-  vertices: Set<string>;
+  vertices: Map<string, { name: string, user_id: string, image: string }>;
 
   private constructor() {
     this.edges = new Map();
-    this.vertices = new Set();
+    this.vertices = new Map();
   }
 
   static getInstance() {
@@ -23,89 +24,70 @@ export class GraphManager {
     return this.graph;
   }
 
+  reset() {
+    this.edges = new Map();
+    this.vertices = new Map();
+  }
+
   async addEdgesFromDB() {
-    const graph = await getUserGraph();
+    this.reset()
 
-    if (!graph) return;
-
-    GraphManager.graph.vertices.add(graph.user_id);
-
-    const layer1_user2 = graph.user2;
-
-    if (!layer1_user2) return;
-
-    for (const layer1_usr of graph.user2) {
-      const user1 = layer1_usr.user2;
-      const mutual = layer1_usr.mutual;
-      const adjList = GraphManager.graph.edges.get(graph.user_id);
-
-      if (!adjList)
-        GraphManager.graph.edges.set(graph.user_id, []);
-      else {
-        adjList.push(user1.user_id);
-        GraphManager.graph.edges.set(graph.user_id, adjList);
-      }
-
-      if (mutual) {
-        const newAdj = GraphManager.graph.edges.get(user1.user_id);
-        if (!newAdj)
-          GraphManager.graph.edges.set(user1.user_id, []);
-        else {
-          newAdj.push(graph.user_id);
-          GraphManager.graph.edges.set(user1.user_id, newAdj);
-        }
-      }
-
-      if (!user1.user2) break;
-
-      for (const layer2_usr of user1.user2) {
-        const user2 = layer2_usr.user2;
-        const mutual = layer2_usr.mutual;
-        const adjList = GraphManager.graph.edges.get(user1.user_id);
-
-        if (!adjList)
-          GraphManager.graph.edges.set(user1.user_id, []);
-        else {
-          adjList.push(user2.user_id);
-          GraphManager.graph.edges.set(user1.user_id, adjList);
-        }
-
-        if (mutual) {
-          const newAdj = GraphManager.graph.edges.get(user2.user_id);
-          if (!newAdj)
-            GraphManager.graph.edges.set(user2.user_id, []);
-          else {
-            newAdj.push(user2.user_id);
-            GraphManager.graph.edges.set(user1.user_id, newAdj);
-          }
-        }
-
-        if (!user2.user2) break;
-
-        for (const layer3_usr of user2.user2) {
-          const user3 = layer3_usr.user2;
-          const mutual = layer3_usr.mutual;
-          const adjList = GraphManager.graph.edges.get(user2.user_id);
-
-          if (!adjList)
-            GraphManager.graph.edges.set(user2.user_id, []);
-          else {
-            adjList.push(user3.user_id);
-            GraphManager.graph.edges.set(user2.user_id, adjList);
-          }
-
-          if (mutual) {
-            const newAdj = GraphManager.graph.edges.get(user3.user_id);
-            if (!newAdj)
-              GraphManager.graph.edges.set(user3.user_id, []);
-            else {
-              newAdj.push(user3.user_id);
-              GraphManager.graph.edges.set(user2.user_id, newAdj);
-            }
-          }
-
-        }
+    this.createGraph(await getUserGraph());
+    let layer1_edges = this.edges;
+    if (layer1_edges.size > 0) {
+      for (const ele of this.vertices) {
+        this.createGraph(await getUserGraph(ele[0]))
       }
     }
+
+  }
+
+  createGraph(graph: {
+    user1: {
+      user_id: string;
+      name: string;
+      email: string;
+      image: string;
+    };
+    user2: {
+      user_id: string;
+      name: string;
+      email: string;
+      image: string;
+    };
+    mutual: boolean;
+  }[] | undefined
+  ) {
+
+    graph?.map((ele) => {
+      if (ele.user1.name === "null") ele.user1.name = ele.user1.email.split("@")[0];
+      if (ele.user2.name === "null") ele.user2.name = ele.user2.email.split("@")[0];
+      GraphManager.graph.vertices.set(ele.user1.user_id, {
+        ...ele.user1
+      })
+      GraphManager.graph.vertices.set(ele.user2.user_id, {
+        ...ele.user2
+      })
+
+      const exisitingEdges = GraphManager.graph.edges.get(ele.user1.user_id);
+      if (exisitingEdges) {
+        if (!exisitingEdges.includes(ele.user2.user_id))
+          exisitingEdges.push(ele.user2.user_id)
+        GraphManager.graph.edges.set(ele.user1.user_id, exisitingEdges);
+      } else {
+        GraphManager.graph.edges.set(ele.user1.user_id, [ele.user2.user_id]);
+      }
+
+      if (ele.mutual) {
+        const exisitingEdges2 = GraphManager.graph.edges.get(ele.user2.user_id);
+        if (exisitingEdges2) {
+          if (!exisitingEdges2.includes(ele.user1.user_id))
+            exisitingEdges2.push(ele.user1.user_id)
+          GraphManager.graph.edges.set(ele.user2.user_id, exisitingEdges2);
+        } else {
+          GraphManager.graph.edges.set(ele.user2.user_id, [ele.user1.user_id]);
+        }
+      }
+    })
   }
 }

@@ -12,7 +12,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <Link href="/dash/explore">Explore</Link>
         <Link href="/dash/chat">Chat</Link>
         <Link href="/dash/upload-post">Upload Post</Link>
-        <Link href="/dash/graph">Graph View</Link>
+        <Link href="/dash/graph" >Graph View</Link>
       </div>
       {children}
     </div>

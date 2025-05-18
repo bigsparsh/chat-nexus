@@ -16,6 +16,16 @@ const Explore = () => {
     email: string;
     address: string | null;
     phone: string | null;
+    user1: {
+      mutual: boolean,
+      user1_id: string,
+      user2_id: string,
+    }[]
+    user2: {
+      mutual: boolean,
+      user1_id: string,
+      user2_id: string,
+    }[]
     posts: Post[];
   }[]
   >();
@@ -38,9 +48,9 @@ const Explore = () => {
           <input type="text" placeholder="Search for anyone" className="text-lg px-4 py-2 rounded-xl bg-stone-900 outline-none" />
           <div className="flex flex-col gap-5">
             <h1 className="text-xl font-semibold">Our Suggestions</h1>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {users?.map((ele) => {
-                return <UserCard key={ele.user_id} name={ele.name} email={ele.email} image={ele.image} user_id={ele.user_id} />
+                return <UserCard key={ele.user_id} name={ele.name} email={ele.email} image={ele.image} user_id={ele.user_id} user1={ele.user1} user2={ele.user2} />
               })}
             </div>
           </div>

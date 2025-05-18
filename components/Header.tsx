@@ -17,7 +17,7 @@ const Header = ({ className }: { className?: string }) => {
             <SignedIn >
 
                 <div className="flex gap-2">
-                    <Link href="/feed">
+                    <Link href="/dash/">
                         <Button variant="ghost" size="sm" className="cursor-pointer">My Feed</Button>
                     </Link>
                     <UserButton />
