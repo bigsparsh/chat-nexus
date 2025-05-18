@@ -7,7 +7,6 @@ export type EdgeType = {
 
 export class GraphManager {
   static graph: GraphManager;
-  user: any;
 
   edges: Map<string, string[]>;
   vertices: Map<string, { name: string, user_id: string, image: string }>;
@@ -33,7 +32,7 @@ export class GraphManager {
     this.reset()
 
     this.createGraph(await getUserGraph());
-    let layer1_edges = this.edges;
+    const layer1_edges = this.edges;
     if (layer1_edges.size > 0) {
       for (const ele of this.vertices) {
         this.createGraph(await getUserGraph(ele[0]))

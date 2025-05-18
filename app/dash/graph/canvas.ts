@@ -25,11 +25,22 @@ export const init = async (container: HTMLDivElement) => {
   }
 
 
-  var nodes = new DataSet([
+  let nodes = new DataSet([
     ...vertices
   ]);
 
-  const connections: { from: string, to: string, arrows: any }[] = [];
+  const connections: {
+    from: string, to: string, arrows: {
+      to?: {
+        enabled: boolean,
+        type: string
+      },
+      from?: {
+        enabled: boolean,
+        type: string,
+      }
+    }
+  }[] = [];
   [...manager.edges].map(edge => {
     edge[1].map(e => {
       if (e !== edge[0]) {
@@ -48,19 +59,19 @@ export const init = async (container: HTMLDivElement) => {
     })
   })
 
-  // @ts-ignore
-  var edges = new DataSet([
+  // @ts-expect-error "no error"
+  let edges = new DataSet([
     ...connections
   ]);
 
 
 
   // create a network
-  var data = {
+  let data = {
     nodes: nodes,
     edges: edges,
   };
-  var options = {
+  let options = {
     nodes: {
       borderWidth: 4,
       size: 30,
@@ -75,6 +86,6 @@ export const init = async (container: HTMLDivElement) => {
     },
   };
 
-  // @ts-ignore
+  // @ts-expect-error "no error"
   new Network(container, data, options);
 }

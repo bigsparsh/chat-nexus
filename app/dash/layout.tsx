@@ -3,7 +3,7 @@ import { checkUser } from "@/lib/actions/User";
 import Link from "next/link";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const _ = await checkUser();
+  await checkUser();
   return <div className="flex flex-col">
     <Header />
     <div className="flex border-t border-stone-400">
