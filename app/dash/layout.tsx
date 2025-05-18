@@ -4,9 +4,9 @@ import Link from "next/link";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   await checkUser();
-  return <div className="flex flex-col">
+  return <div className="flex flex-col overflow-y-hidden h-screen">
     <Header />
-    <div className="flex border-t border-stone-400">
+    <div className="flex border-t border-stone-400 overflow-y-hidden">
       <div className="flex flex-col border-r border-stone-400 text-2xl gap-3  py-10 p-5 h-screen basis-2/12 font-semibold">
         <Link href="/dash">My Feed</Link>
         <Link href="/dash/explore">Explore</Link>
